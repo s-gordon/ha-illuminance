@@ -26,6 +26,12 @@ try:
     from homeassistant.components.met.weather import ATTRIBUTION as MET_ATTRIBUTION
 except:
     MET_ATTRIBUTION = "no_met"
+    
+try:
+    from homeassistant.components.pirateweather.weather import ATTRIBUTION as PRW_ATTRIBUTION
+except:
+    PRW_ATTRIBUTION = "no_prw"
+    
 try:
     from homeassistant.components.accuweather.weather import (
         ATTRIBUTION as AW_ATTRIBUTION,
@@ -65,6 +71,15 @@ DARKSKY_MAPPING = (
     (2, ("partlycloudy",)),
     (1, ("clear-night", "sunny", "windy")),
 )
+
+PRW_MAPPING = (
+    (10, ("hail", "lightning")),
+    (5, ("fog", "rainy", "snowy", "snowy-rainy")),
+    (3, ("cloudy",)),
+    (2, ("partlycloudy",)),
+    (1, ("clear-night", "sunny", "windy")),
+)
+
 MET_MAPPING = (
     (10, ("lightning-rainy", "pouring")),
     (5, ("fog", "rainy", "snowy", "snowy-rainy")),
@@ -209,6 +224,8 @@ class IlluminanceSensor(Entity):
                 self._sk_mapping = DARKSKY_MAPPING
             elif attribution == MET_ATTRIBUTION:
                 self._sk_mapping = MET_MAPPING
+            elif attribution == PRW_ATTRIBUTION:
+                self._sk_mapping = PRW_MAPPING
             elif attribution == AW_ATTRIBUTION:
                 self._sk_mapping = AW_MAPPING
             elif "Ecobee" in attribution:
